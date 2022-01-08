@@ -1498,7 +1498,7 @@ void loadConfigFromFile(Config& _config, FileSystem::path const& _fileName)
         _config.platformPlugin = ""; // Mapping "auto" to its internally equivalent "".
 
     string renderingBackendStr;
-    if (tryLoadValue(usedKeys, doc, "renderer", renderingBackendStr))
+    if (tryLoadValue(usedKeys, doc, "renderer.backend", renderingBackendStr))
     {
         renderingBackendStr = toUpper(renderingBackendStr);
         if (renderingBackendStr == "OPENGL")
@@ -1508,6 +1508,9 @@ void loadConfigFromFile(Config& _config, FileSystem::path const& _fileName)
         else if (renderingBackendStr != "" && renderingBackendStr != "DEFAULT")
             errorlog()("Unknown renderer: {}.", renderingBackendStr);
     }
+
+    tryLoadValue(usedKeys, doc, "renderer.tile_direct_mapping", _config.textureAtlasDirectMapping);
+    tryLoadValue(usedKeys, doc, "renderer.tile_cache_count", _config.textureAtlasTileCount);
 
     if (doc["mock_font_locator"].IsSequence())
     {
