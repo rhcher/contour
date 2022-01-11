@@ -192,6 +192,12 @@ struct RingIterator
     basic_ring<T, Vector>* ring {};
     difference_type current {};
 
+    RingIterator(basic_ring<T, Vector>* aRing, difference_type aCurrent): ring { aRing }, current { aCurrent }
+    {
+    }
+
+    RingIterator() = default;
+
     RingIterator(RingIterator const&) = default;
     RingIterator& operator=(RingIterator const&) = default;
 
